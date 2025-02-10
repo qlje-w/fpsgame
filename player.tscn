@@ -1,0 +1,119 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0gkou5yu4sx3"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ubieu"]
+[ext_resource type="Script" path="res://head.gd" id="2_7stju"]
+[ext_resource type="PackedScene" uid="uid://cm74fi534x3cv" path="res://shotgun_scene.tscn" id="4_mjdlr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qh8g0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0gdup"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_ubieu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_qh8g0")
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
+mesh = SubResource("CapsuleMesh_0gdup")
+skeleton = NodePath("../..")
+
+[node name="head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.609909, 0)
+script = ExtResource("2_7stju")
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+unique_name_in_owner = true
+cull_mask = 524287
+current = true
+
+[node name="weapons" type="Node3D" parent="head/Camera3D"]
+unique_name_in_owner = true
+
+[node name="shotgun" parent="head/Camera3D/weapons" instance=ExtResource("4_mjdlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293918, -0.235843, -0.588566)
+
+[node name="spawner_Shell" type="Node3D" parent="head/Camera3D/weapons/shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237464, 0.269901, 0.468063)
+
+[node name="rcont" type="Node3D" parent="head/Camera3D/weapons/shotgun"]
+transform = Transform3D(1, 0, 0, 0, 0.999712, -0.0240134, 0, 0.0240134, 0.999712, -0.293918, 0.235843, 0.354426)
+
+[node name="RayCast3D" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="RayCast3D2" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="RayCast3D3" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="RayCast3D4" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="RayCast3D5" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="RayCast3D6" type="RayCast3D" parent="head/Camera3D/weapons/shotgun/rcont"]
+enabled = false
+target_position = Vector3(0, 0, -100)
+
+[node name="tracerspawn" type="Node3D" parent="head/Camera3D/weapons/shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.043565, -0.939236)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="subcam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.611865, 0)
+cull_mask = 524288
+current = true
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(0, -5, 0, -20)
+width = 2.0
+
+[node name="right" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(20, 0, 5, 0)
+width = 2.0
+
+[node name="down" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(0, 20, 0, 5)
+width = 2.0
+
+[node name="left" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(-5, 0, -20, 0)
+width = 2.0
+
+[editable path="head/Camera3D/weapons/shotgun"]

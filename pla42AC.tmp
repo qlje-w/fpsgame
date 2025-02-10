@@ -1,0 +1,353 @@
+[gd_scene load_steps=39 format=3 uid="uid://b0gkou5yu4sx3"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ubieu"]
+[ext_resource type="Script" path="res://head.gd" id="2_7stju"]
+[ext_resource type="ArrayMesh" uid="uid://h80yveentve" path="res://assets/models/shotgun_mesh/blockbench_export_mesh.res" id="2_efgur"]
+[ext_resource type="PackedScene" uid="uid://cf8ax6j7f33ws" path="res://shell_scene.tscn" id="3_458ny"]
+[ext_resource type="ArrayMesh" uid="uid://cbulbc7a2pej7" path="res://assets/models/shotgun_mesh/blockbench_export_mesh2.res" id="3_q1kfa"]
+[ext_resource type="ArrayMesh" uid="uid://dvln8fhd15os" path="res://assets/models/shotgun_mesh/blockbench_export_mesh3.res" id="4_8xctj"]
+[ext_resource type="ArrayMesh" uid="uid://ctro25huge71k" path="res://assets/models/shotgun_mesh/blockbench_export_mesh4.res" id="5_1iv0g"]
+[ext_resource type="ArrayMesh" uid="uid://cca7mpbigokt8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh5.res" id="6_jlojy"]
+[ext_resource type="ArrayMesh" uid="uid://csdsc8cluriuk" path="res://assets/models/shotgun_mesh/blockbench_export_mesh6.res" id="7_to6dq"]
+[ext_resource type="ArrayMesh" uid="uid://syuofqyp17yi" path="res://assets/models/shotgun_mesh/blockbench_export_mesh7.res" id="8_a2m13"]
+[ext_resource type="ArrayMesh" uid="uid://cwvh5prsjoke8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh8.res" id="9_5dy8l"]
+[ext_resource type="ArrayMesh" uid="uid://bhv77apogdeqv" path="res://assets/models/shotgun_mesh/blockbench_export_mesh9.res" id="10_8ixeu"]
+[ext_resource type="ArrayMesh" uid="uid://bvvptdn6xexp2" path="res://assets/models/shotgun_mesh/blockbench_export_mesh10.res" id="11_lvh13"]
+[ext_resource type="ArrayMesh" uid="uid://cawg32yeyby6b" path="res://assets/models/shotgun_mesh/blockbench_export_mesh11.res" id="12_acghe"]
+[ext_resource type="ArrayMesh" uid="uid://dnwg0wpo3qp61" path="res://assets/models/shotgun_mesh/blockbench_export_mesh12.res" id="13_esrlw"]
+[ext_resource type="Animation" uid="uid://bekrmdr3vxsd8" path="res://assets/animations/idle.res" id="14_xofec"]
+[ext_resource type="Texture2D" uid="uid://dhgyfnfvkxcsr" path="res://assets/textures/dgvhgo3-419a468f-44d8-421b-92c1-dd33ec32d4be.png" id="14_xrgxu"]
+[ext_resource type="Animation" uid="uid://dw6i0nl5pn4b1" path="res://assets/animations/reload.res" id="15_v4nn0"]
+[ext_resource type="Animation" uid="uid://lol7pt5q6kmi" path="res://assets/animations/reloadonebullet.res" id="16_ckg3c"]
+[ext_resource type="Script" path="res://animation_player.gd" id="17_8tu6q"]
+[ext_resource type="Animation" uid="uid://dydp87ypv0wy3" path="res://assets/animations/shoot.res" id="17_d05gr"]
+[ext_resource type="Animation" uid="uid://dv0oweamq4ddo" path="res://assets/animations/shoot2.res" id="18_0lrjh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qh8g0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0gdup"]
+
+[sub_resource type="Curve" id="Curve_3l8xl"]
+_data = [Vector2(0, 0.26), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mrhaa"]
+curve = SubResource("Curve_3l8xl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fem46"]
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_mrhaa")
+anim_speed_min = 0.5
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovm1l"]
+transparency = 1
+blend_mode = 1
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.699653, 0.699653, 0.699653, 1)
+albedo_texture = ExtResource("14_xrgxu")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_d7b14"]
+lightmap_size_hint = Vector2i(7, 7)
+material = SubResource("StandardMaterial3D_ovm1l")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_yiq1x"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.645522, 0.45), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mkoww"]
+curve = SubResource("Curve_yiq1x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ssav"]
+lifetime_randomness = 0.12
+direction = Vector3(0, 0, -1)
+spread = 10.946
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_mkoww")
+
+[sub_resource type="Gradient" id="Gradient_t78qh"]
+colors = PackedColorArray(1, 1, 0, 1, 0.999985, 0.621806, 0.617214, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s1bal"]
+gradient = SubResource("Gradient_t78qh")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5xuc"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_s1bal")
+albedo_texture_force_srgb = true
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 7.47
+emission_texture = SubResource("GradientTexture2D_s1bal")
+grow_amount = -1.707
+proximity_fade_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_bcr4v"]
+material = SubResource("StandardMaterial3D_k5xuc")
+
+[sub_resource type="Animation" id="Animation_7tn8f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/wholething/flash:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Camera3D/..:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node/wholething")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.003125, 0.565625, 0.2625)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bckq2"]
+_data = {
+"RESET": SubResource("Animation_7tn8f"),
+"idle": ExtResource("14_xofec"),
+"reload": ExtResource("15_v4nn0"),
+"reloadonebullet": ExtResource("16_ckg3c"),
+"shoot": ExtResource("17_d05gr"),
+"shoot2": ExtResource("18_0lrjh")
+}
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_ubieu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_qh8g0")
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
+mesh = SubResource("CapsuleMesh_0gdup")
+skeleton = NodePath("../..")
+
+[node name="head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.609909, 0)
+script = ExtResource("2_7stju")
+shell_scene = ExtResource("3_458ny")
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+unique_name_in_owner = true
+cull_mask = 524287
+current = true
+
+[node name="weapons" type="Node3D" parent="head/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.246797, -0.372304, -0.135795)
+
+[node name="shotgun" type="Node3D" parent="head/Camera3D/weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.455067, -0.547291)
+
+[node name="Node" type="Node3D" parent="head/Camera3D/weapons/shotgun"]
+
+[node name="wholething" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003125, 0.565625, 0.2625)
+
+[node name="barrel" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, 0.0375, -0.1575)
+
+[node name="pyramid_selection_selection" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.22045e-16, -4.16334e-17)
+layers = 524288
+mesh = ExtResource("2_efgur")
+skeleton = NodePath("")
+
+[node name="pyramid_selection_selection_selection" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22045e-16, -4.16334e-17)
+layers = 524288
+mesh = ExtResource("3_q1kfa")
+skeleton = NodePath("")
+
+[node name="shell3" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, 0.0953125, 0.011875)
+
+[node name="pyramid_selection_selection_selection2" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel/shell3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, -0.08125, 0.03125)
+layers = 524288
+mesh = ExtResource("4_8xctj")
+skeleton = NodePath("")
+
+[node name="pyramid_selection_selection_selection_selection" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel/shell3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, -0.08125, 0.03125)
+layers = 524288
+mesh = ExtResource("5_1iv0g")
+skeleton = NodePath("")
+
+[node name="shell2" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -0.123438, 0.011875)
+
+[node name="pyramid_selection_selection_selection3" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel/shell2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.1875, 0.03125)
+layers = 524288
+mesh = ExtResource("6_jlojy")
+skeleton = NodePath("")
+
+[node name="pyramid_selection_selection_selection_selection2" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/barrel/shell2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.1875, 0.03125)
+layers = 524288
+mesh = ExtResource("7_to6dq")
+skeleton = NodePath("")
+
+[node name="trigger" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+
+[node name="tube" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/trigger"]
+transform = Transform3D(0, 1, 0, -0.978148, 0, 0.207912, 0.207912, 0, 0.978148, 0, -0.0125, -0.03125)
+layers = 524288
+mesh = ExtResource("8_a2m13")
+skeleton = NodePath("")
+
+[node name="mainpart" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, -0.440625, -0.2875)
+
+[node name="tube2" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/mainpart"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
+layers = 524288
+mesh = ExtResource("9_5dy8l")
+skeleton = NodePath("")
+
+[node name="tube_selection" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/mainpart"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
+layers = 524288
+mesh = ExtResource("10_8ixeu")
+skeleton = NodePath("")
+
+[node name="tube_selection2" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/mainpart"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
+layers = 524288
+mesh = ExtResource("11_lvh13")
+skeleton = NodePath("")
+
+[node name="tube_selection3" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/mainpart"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
+layers = 524288
+mesh = ExtResource("12_acghe")
+skeleton = NodePath("")
+
+[node name="lock" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, 0.11125, -0.021875)
+
+[node name="cuboid" type="MeshInstance3D" parent="head/Camera3D/weapons/shotgun/Node/wholething/lock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125, -0.0125)
+layers = 524288
+mesh = ExtResource("13_esrlw")
+skeleton = NodePath("")
+
+[node name="smoke" type="GPUParticles3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00352916, 0.0976938, -1.19568)
+visible = false
+emitting = false
+lifetime = 0.41
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+transform_align = 2
+process_material = SubResource("ParticleProcessMaterial_fem46")
+draw_pass_1 = SubResource("QuadMesh_d7b14")
+
+[node name="flash" type="GPUParticles3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00426887, 0.0983676, -1.20002)
+layers = 524289
+emitting = false
+lifetime = 0.04
+one_shot = true
+explosiveness = 0.86
+local_coords = true
+draw_order = 3
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_0ssav")
+draw_pass_1 = SubResource("QuadMesh_bcr4v")
+
+[node name="spawner_Shell" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/wholething"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.235334, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="head/Camera3D/weapons/shotgun"]
+libraries = {
+"": SubResource("AnimationLibrary_bckq2")
+}
+script = ExtResource("17_8tu6q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="subcam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.611865, 0)
+cull_mask = 524288
+current = true
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(0, -5, 0, -20)
+width = 2.0
+
+[node name="right" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(20, 0, 5, 0)
+width = 2.0
+
+[node name="down" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(0, 20, 0, 5)
+width = 2.0
+
+[node name="left" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+points = PackedVector2Array(-5, 0, -20, 0)
+width = 2.0

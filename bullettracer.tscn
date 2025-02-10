@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwuvs8w8dx4v7"]
+
+[ext_resource type="Script" path="res://bullettracer.gd" id="1_co83t"]
+
+[sub_resource type="Gradient" id="Gradient_10gce"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.679688, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w42yr"]
+gradient = SubResource("Gradient_10gce")
+fill_from = Vector2(0.542735, 1)
+fill_to = Vector2(0.542735, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxhkp"]
+cull_mode = 2
+albedo_texture = SubResource("GradientTexture2D_w42yr")
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_uxd1w"]
+material = SubResource("StandardMaterial3D_qxhkp")
+size = 0.013
+
+[node name="tracer" type="Node3D"]
+script = ExtResource("1_co83t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.506102)
+mesh = SubResource("RibbonTrailMesh_uxd1w")
+skeleton = NodePath("../..")

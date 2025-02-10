@@ -1,0 +1,152 @@
+[gd_scene load_steps=13 format=3 uid="uid://cm8bwwwuu5hq1"]
+
+[ext_resource type="Texture2D" uid="uid://ds72voixkvnhe" path="res://assets/textures/dirty-metal-texture(1).jpg" id="1_1get0"]
+[ext_resource type="Shader" path="res://world.gdshader" id="1_32185"]
+[ext_resource type="PackedScene" uid="uid://b0gkou5yu4sx3" path="res://player.tscn" id="1_v2w4e"]
+[ext_resource type="Script" path="res://node_3d.gd" id="2_xjumv"]
+[ext_resource type="PackedScene" uid="uid://dvrawjgstx8mp" path="res://enemy.tscn" id="5_e6tol"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egbuw"]
+shader = ExtResource("1_32185")
+shader_parameter/enabled = true
+shader_parameter/dithering = true
+shader_parameter/colors = 12
+shader_parameter/dither_size = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jaa5w"]
+albedo_texture = ExtResource("1_1get0")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3agjv"]
+sky_top_color = Color(0.344797, 0.569497, 0.718658, 1)
+sky_horizon_color = Color(0.685613, 0.651684, 0.585776, 1)
+
+[sub_resource type="Sky" id="Sky_gboof"]
+sky_material = SubResource("ProceduralSkyMaterial_3agjv")
+
+[sub_resource type="Environment" id="Environment_2vu7k"]
+background_mode = 2
+sky = SubResource("Sky_gboof")
+sdfgi_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bt446"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4fhxm"]
+
+[node name="SubViewportContainer" type="SubViewportContainer"]
+material = SubResource("ShaderMaterial_egbuw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="World" type="Node3D" parent="SubViewport"]
+script = ExtResource("2_xjumv")
+
+[node name="CharacterBody3D" parent="SubViewport/World" instance=ExtResource("1_v2w4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8601, 0)
+
+[node name="wholething" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone" index="0"]
+transform = Transform3D(0.997734, 0.0663327, 0.0112563, -0.0654468, 0.995653, -0.0662636, -0.0156028, 0.0653767, 0.997739, 0.003125, -0.028125, 0.353125)
+
+[node name="trigger" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.988518, 0.151103, 0, -0.151103, 0.988518, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.33796, -0.223943, -2.47993)
+use_collision = true
+size = Vector3(71.2921, 0.414551, 88.3546)
+material = SubResource("StandardMaterial3D_jaa5w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 0.895277, 0.44551, 0, -0.44551, 0.895277, 0, 6.96349, 13.8433)
+layers = 1048575
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/World"]
+environment = SubResource("Environment_2vu7k")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3168, 0.318461, 2.73529)
+use_collision = true
+size = Vector3(8.15637, 0.670258, 6.47058)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/World"]
+transform = Transform3D(0.997672, 0, 0.0681894, 0, 1, 0, -0.0681894, 0, 0.997672, 2.1683, 1.00159, 9.85464)
+use_collision = true
+size = Vector3(8.15637, 0.816132, 6.47058)
+
+[node name="walls" type="Node3D" parent="SubViewport/World"]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="SubViewport/World/walls"]
+transform = Transform3D(100.152, 0, 0, 0, 18.7098, 0, 0, 0, 3.02153, -15.5834, 4.48272, 43.1409)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/World/walls/StaticBody3D2"]
+shape = SubResource("BoxShape3D_bt446")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/World/walls/StaticBody3D2"]
+mesh = SubResource("BoxMesh_4fhxm")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="SubViewport/World/walls"]
+transform = Transform3D(-4.37778e-06, 0, 3.02153, 0, 18.7098, 0, -100.152, 0, -1.32075e-07, -45.4945, 4.48272, -4.63183)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/World/walls/StaticBody3D3"]
+shape = SubResource("BoxShape3D_bt446")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/World/walls/StaticBody3D3"]
+mesh = SubResource("BoxMesh_4fhxm")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="SubViewport/World/walls"]
+transform = Transform3D(100.152, 0, 0, 0, 18.7098, 0, 0, 0, 3.02153, -15.5834, 4.48272, -46.4556)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/World/walls/StaticBody3D4"]
+shape = SubResource("BoxShape3D_bt446")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/World/walls/StaticBody3D4"]
+mesh = SubResource("BoxMesh_4fhxm")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="SubViewport/World/walls"]
+transform = Transform3D(-4.37778e-06, 0, -3.02153, 0, 18.7098, 0, 100.152, 0, -1.32075e-07, 26.1228, 4.48272, -5.38739)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/World/walls/StaticBody3D5"]
+shape = SubResource("BoxShape3D_bt446")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/World/walls/StaticBody3D5"]
+mesh = SubResource("BoxMesh_4fhxm")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/World/walls"]
+transform = Transform3D(22.9187, 0, 0, 0, 1, 0, 0, 0, 22.9187, -15.5834, 0.150721, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/World/walls/StaticBody3D"]
+shape = SubResource("BoxShape3D_bt446")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/World/walls/StaticBody3D"]
+mesh = SubResource("BoxMesh_4fhxm")
+skeleton = NodePath("../../..")
+
+[node name="hitscan" type="Node3D" parent="SubViewport/World"]
+
+[node name="enemy" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99609, 2.15728, -5.16963)
+
+[node name="enemy2" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05409, 2.15728, -5.16963)
+
+[node name="enemy3" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15728, -5.16963)
+
+[node name="enemy4" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.63883, 2.15728, -5.16963)
+
+[editable path="SubViewport/World/CharacterBody3D"]
+[editable path="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun"]
