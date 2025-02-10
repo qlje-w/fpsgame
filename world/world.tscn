@@ -1,20 +1,20 @@
 [gd_scene load_steps=13 format=3 uid="uid://cm8bwwwuu5hq1"]
 
-[ext_resource type="Texture2D" uid="uid://ds72voixkvnhe" path="res://assets/textures/dirty-metal-texture(1).jpg" id="1_1get0"]
-[ext_resource type="Shader" path="res://world.gdshader" id="1_32185"]
-[ext_resource type="PackedScene" uid="uid://b0gkou5yu4sx3" path="res://player.tscn" id="1_v2w4e"]
-[ext_resource type="Script" path="res://node_3d.gd" id="2_xjumv"]
-[ext_resource type="PackedScene" uid="uid://dvrawjgstx8mp" path="res://enemy.tscn" id="5_e6tol"]
+[ext_resource type="Shader" path="res://world/world.gdshader" id="1_wjphv"]
+[ext_resource type="Script" path="res://world/world.gd" id="2_ow2nb"]
+[ext_resource type="PackedScene" uid="uid://b0gkou5yu4sx3" path="res://player/player.tscn" id="3_7yjwx"]
+[ext_resource type="Texture2D" uid="uid://ds72voixkvnhe" path="res://assets/textures/dirty-metal-texture(1).jpg" id="4_sxy6g"]
+[ext_resource type="PackedScene" uid="uid://dvrawjgstx8mp" path="res://enemy/enemy.tscn" id="5_ungyb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_egbuw"]
-shader = ExtResource("1_32185")
+shader = ExtResource("1_wjphv")
 shader_parameter/enabled = true
 shader_parameter/dithering = true
 shader_parameter/colors = 12
 shader_parameter/dither_size = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jaa5w"]
-albedo_texture = ExtResource("1_1get0")
+albedo_texture = ExtResource("4_sxy6g")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3agjv"]
 sky_top_color = Color(0.344797, 0.569497, 0.718658, 1)
@@ -48,13 +48,13 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="World" type="Node3D" parent="SubViewport"]
-script = ExtResource("2_xjumv")
+script = ExtResource("2_ow2nb")
 
-[node name="CharacterBody3D" parent="SubViewport/World" instance=ExtResource("1_v2w4e")]
+[node name="CharacterBody3D" parent="SubViewport/World" instance=ExtResource("3_7yjwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8601, 0)
 
 [node name="wholething" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone" index="0"]
-transform = Transform3D(0.997734, 0.0663327, 0.0112563, -0.0654468, 0.995653, -0.0662636, -0.0156028, 0.0653767, 0.997739, 0.003125, -0.028125, 0.353125)
+transform = Transform3D(0.997734, 0.0663324, 0.0112563, -0.0654466, 0.995653, -0.0662636, -0.0156028, 0.0653767, 0.997739, 0.003125, -0.028125, 0.353125)
 
 [node name="trigger" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.988518, 0.151103, 0, -0.151103, 0.988518, 0, 0, 0)
@@ -136,16 +136,16 @@ skeleton = NodePath("../../..")
 
 [node name="hitscan" type="Node3D" parent="SubViewport/World"]
 
-[node name="enemy" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+[node name="enemy" parent="SubViewport/World/hitscan" instance=ExtResource("5_ungyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99609, 2.15728, -5.16963)
 
-[node name="enemy2" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+[node name="enemy2" parent="SubViewport/World/hitscan" instance=ExtResource("5_ungyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05409, 2.15728, -5.16963)
 
-[node name="enemy3" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+[node name="enemy3" parent="SubViewport/World/hitscan" instance=ExtResource("5_ungyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15728, -5.16963)
 
-[node name="enemy4" parent="SubViewport/World/hitscan" instance=ExtResource("5_e6tol")]
+[node name="enemy4" parent="SubViewport/World/hitscan" instance=ExtResource("5_ungyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.63883, 2.15728, -5.16963)
 
 [editable path="SubViewport/World/CharacterBody3D"]

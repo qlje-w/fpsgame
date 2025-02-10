@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var shell = preload("res://shell_scene.tscn")
+@export var shell = preload("res://shell/shell_scene.tscn")
 @onready var character_body_3d: CharacterBody3D = $CharacterBody3D
 @onready var shell_spawner = $CharacterBody3D/head/Camera3D/weapons/shotgun/spawner_Shell
 

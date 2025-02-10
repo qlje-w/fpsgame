@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwuvs8w8dx4v7"]
 
-[ext_resource type="Script" path="res://bullettracer.gd" id="1_co83t"]
+[ext_resource type="Script" path="res://tracer/bullettracer.gd" id="1_co83t"]
 
 [sub_resource type="Gradient" id="Gradient_10gce"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 0.679688, 0, 1)

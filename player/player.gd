@@ -16,10 +16,6 @@ var spread = 10
 #hitscan
 @onready var rcont = $head/Camera3D/weapons/shotgun/rcont
 
-#tracer
-var spread_rand
-@onready var world: Node3D = $".."
-
 #subcam
 @onready var camera = get_node("%Camera3D")
 @onready var camerasub = get_node("%subcam")

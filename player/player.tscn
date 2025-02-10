@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b0gkou5yu4sx3"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_ubieu"]
-[ext_resource type="Script" path="res://head.gd" id="2_7stju"]
-[ext_resource type="PackedScene" uid="uid://cm74fi534x3cv" path="res://shotgun_scene.tscn" id="4_mjdlr"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_ubieu"]
+[ext_resource type="Script" path="res://player/head.gd" id="2_7stju"]
+[ext_resource type="PackedScene" uid="uid://cm74fi534x3cv" path="res://shotgun/shotgun_scene.tscn" id="4_mjdlr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qh8g0"]
 

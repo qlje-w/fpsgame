@@ -1,18 +1,18 @@
 [gd_scene load_steps=14 format=3 uid="uid://cm74fi534x3cv"]
 
-[ext_resource type="ArrayMesh" uid="uid://h80yveentve" path="res://assets/models/shotgun_mesh/blockbench_export_mesh.res" id="1_d4gvr"]
-[ext_resource type="ArrayMesh" uid="uid://cbulbc7a2pej7" path="res://assets/models/shotgun_mesh/blockbench_export_mesh2.res" id="2_ocyy7"]
-[ext_resource type="ArrayMesh" uid="uid://dvln8fhd15os" path="res://assets/models/shotgun_mesh/blockbench_export_mesh3.res" id="3_6qk5j"]
-[ext_resource type="ArrayMesh" uid="uid://ctro25huge71k" path="res://assets/models/shotgun_mesh/blockbench_export_mesh4.res" id="4_t15cw"]
-[ext_resource type="ArrayMesh" uid="uid://cca7mpbigokt8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh5.res" id="5_x2a46"]
-[ext_resource type="ArrayMesh" uid="uid://csdsc8cluriuk" path="res://assets/models/shotgun_mesh/blockbench_export_mesh6.res" id="6_qn64j"]
-[ext_resource type="ArrayMesh" uid="uid://syuofqyp17yi" path="res://assets/models/shotgun_mesh/blockbench_export_mesh7.res" id="7_a1n8b"]
-[ext_resource type="ArrayMesh" uid="uid://cwvh5prsjoke8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh8.res" id="8_4njor"]
-[ext_resource type="ArrayMesh" uid="uid://bhv77apogdeqv" path="res://assets/models/shotgun_mesh/blockbench_export_mesh9.res" id="9_tnwc1"]
-[ext_resource type="ArrayMesh" uid="uid://bvvptdn6xexp2" path="res://assets/models/shotgun_mesh/blockbench_export_mesh10.res" id="10_2elu0"]
-[ext_resource type="ArrayMesh" uid="uid://cawg32yeyby6b" path="res://assets/models/shotgun_mesh/blockbench_export_mesh11.res" id="11_mo5o8"]
-[ext_resource type="ArrayMesh" uid="uid://dnwg0wpo3qp61" path="res://assets/models/shotgun_mesh/blockbench_export_mesh12.res" id="12_tr647"]
-[ext_resource type="AnimationLibrary" uid="uid://c1hekbp13xtmt" path="res://assets/animations/newanim.res" id="13_4xgdc"]
+[ext_resource type="ArrayMesh" uid="uid://h80yveentve" path="res://assets/models/shotgun_mesh/blockbench_export_mesh.res" id="1_p0cp4"]
+[ext_resource type="ArrayMesh" uid="uid://cbulbc7a2pej7" path="res://assets/models/shotgun_mesh/blockbench_export_mesh2.res" id="2_etqpc"]
+[ext_resource type="ArrayMesh" uid="uid://dvln8fhd15os" path="res://assets/models/shotgun_mesh/blockbench_export_mesh3.res" id="3_g2mef"]
+[ext_resource type="ArrayMesh" uid="uid://ctro25huge71k" path="res://assets/models/shotgun_mesh/blockbench_export_mesh4.res" id="4_lk0g4"]
+[ext_resource type="ArrayMesh" uid="uid://cca7mpbigokt8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh5.res" id="5_hd8my"]
+[ext_resource type="ArrayMesh" uid="uid://csdsc8cluriuk" path="res://assets/models/shotgun_mesh/blockbench_export_mesh6.res" id="6_rgrcr"]
+[ext_resource type="ArrayMesh" uid="uid://syuofqyp17yi" path="res://assets/models/shotgun_mesh/blockbench_export_mesh7.res" id="7_6qk5m"]
+[ext_resource type="ArrayMesh" uid="uid://cwvh5prsjoke8" path="res://assets/models/shotgun_mesh/blockbench_export_mesh8.res" id="8_q2tta"]
+[ext_resource type="ArrayMesh" uid="uid://bhv77apogdeqv" path="res://assets/models/shotgun_mesh/blockbench_export_mesh9.res" id="9_o3fqp"]
+[ext_resource type="ArrayMesh" uid="uid://bvvptdn6xexp2" path="res://assets/models/shotgun_mesh/blockbench_export_mesh10.res" id="10_0b4wh"]
+[ext_resource type="ArrayMesh" uid="uid://cawg32yeyby6b" path="res://assets/models/shotgun_mesh/blockbench_export_mesh11.res" id="11_5ot3d"]
+[ext_resource type="ArrayMesh" uid="uid://dnwg0wpo3qp61" path="res://assets/models/shotgun_mesh/blockbench_export_mesh12.res" id="12_6op2b"]
+[ext_resource type="AnimationLibrary" uid="uid://c1hekbp13xtmt" path="res://assets/animations/newanim.res" id="13_0um7d"]
 
 [node name="shotgun" type="Node3D"]
 
@@ -29,13 +29,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, 0.0375, -0.1575)
 [node name="pyramid_selection_selection" type="MeshInstance3D" parent="Node/bone/wholething/barrel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.22045e-16, -4.16334e-17)
 layers = 524288
-mesh = ExtResource("1_d4gvr")
+mesh = ExtResource("1_p0cp4")
 skeleton = NodePath("")
 
 [node name="pyramid_selection_selection_selection" type="MeshInstance3D" parent="Node/bone/wholething/barrel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22045e-16, -4.16334e-17)
 layers = 524288
-mesh = ExtResource("2_ocyy7")
+mesh = ExtResource("2_etqpc")
 skeleton = NodePath("")
 
 [node name="shell3" type="Node3D" parent="Node/bone/wholething/barrel"]
@@ -44,13 +44,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, 0.0953125, 0.011875)
 [node name="pyramid_selection_selection_selection2" type="MeshInstance3D" parent="Node/bone/wholething/barrel/shell3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, -0.08125, 0.03125)
 layers = 524288
-mesh = ExtResource("3_6qk5j")
+mesh = ExtResource("3_g2mef")
 skeleton = NodePath("")
 
 [node name="pyramid_selection_selection_selection_selection" type="MeshInstance3D" parent="Node/bone/wholething/barrel/shell3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, -0.08125, 0.03125)
 layers = 524288
-mesh = ExtResource("4_t15cw")
+mesh = ExtResource("4_lk0g4")
 skeleton = NodePath("")
 
 [node name="shell2" type="Node3D" parent="Node/bone/wholething/barrel"]
@@ -59,13 +59,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -0.123438, 0.011875)
 [node name="pyramid_selection_selection_selection3" type="MeshInstance3D" parent="Node/bone/wholething/barrel/shell2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.1875, 0.03125)
 layers = 524288
-mesh = ExtResource("5_x2a46")
+mesh = ExtResource("5_hd8my")
 skeleton = NodePath("")
 
 [node name="pyramid_selection_selection_selection_selection2" type="MeshInstance3D" parent="Node/bone/wholething/barrel/shell2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0625, 0.1875, 0.03125)
 layers = 524288
-mesh = ExtResource("6_qn64j")
+mesh = ExtResource("6_rgrcr")
 skeleton = NodePath("")
 
 [node name="trigger" type="Node3D" parent="Node/bone/wholething"]
@@ -73,7 +73,7 @@ skeleton = NodePath("")
 [node name="tube" type="MeshInstance3D" parent="Node/bone/wholething/trigger"]
 transform = Transform3D(0, 1, 0, -0.978148, 0, 0.207912, 0.207912, 0, 0.978148, 0, -0.0125, -0.03125)
 layers = 524288
-mesh = ExtResource("7_a1n8b")
+mesh = ExtResource("7_6qk5m")
 skeleton = NodePath("")
 
 [node name="mainpart" type="Node3D" parent="Node/bone/wholething"]
@@ -82,25 +82,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, -0.440625, -0.2875
 [node name="tube2" type="MeshInstance3D" parent="Node/bone/wholething/mainpart"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
 layers = 524288
-mesh = ExtResource("8_4njor")
+mesh = ExtResource("8_q2tta")
 skeleton = NodePath("")
 
 [node name="tube_selection" type="MeshInstance3D" parent="Node/bone/wholething/mainpart"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
 layers = 524288
-mesh = ExtResource("9_tnwc1")
+mesh = ExtResource("9_o3fqp")
 skeleton = NodePath("")
 
 [node name="tube_selection2" type="MeshInstance3D" parent="Node/bone/wholething/mainpart"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
 layers = 524288
-mesh = ExtResource("10_2elu0")
+mesh = ExtResource("10_0b4wh")
 skeleton = NodePath("")
 
 [node name="tube_selection3" type="MeshInstance3D" parent="Node/bone/wholething/mainpart"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.428125, 0.275)
 layers = 524288
-mesh = ExtResource("11_mo5o8")
+mesh = ExtResource("11_5ot3d")
 skeleton = NodePath("")
 
 [node name="lock" type="Node3D" parent="Node/bone/wholething"]
@@ -109,10 +109,10 @@ transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -0.003125, 0.11
 [node name="cuboid" type="MeshInstance3D" parent="Node/bone/wholething/lock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125, -0.0125)
 layers = 524288
-mesh = ExtResource("12_tr647")
+mesh = ExtResource("12_6op2b")
 skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": ExtResource("13_4xgdc")
+"": ExtResource("13_0um7d")
 }

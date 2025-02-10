@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv68a8td8wsm3"]
-
-[ext_resource type="PackedScene" uid="uid://ttiatb5p3vk4" path="res://assets/models/nose.gltf" id="1_et6jp"]
-
-[node name="blockbench_export" instance=ExtResource("1_et6jp")]

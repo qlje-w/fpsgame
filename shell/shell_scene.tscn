@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://cf8ax6j7f33ws"]
 
 [ext_resource type="Texture2D" uid="uid://dog0qs0hhqafm" path="res://assets/models/shell_1.png" id="1_ico4o"]
-[ext_resource type="Script" path="res://shell_scene.gd" id="1_je3wq"]
+[ext_resource type="Script" path="res://shell/shell_scene.gd" id="1_je3wq"]
 [ext_resource type="Texture2D" uid="uid://cww3ksh41wkc1" path="res://assets/models/shell_2.png" id="2_52an0"]
 [ext_resource type="AudioStream" uid="uid://2axxmudfujkt" path="res://assets/sounds/shotgun-shell-drop_f1mq3ieu.wav" id="4_7wx7w"]
 
