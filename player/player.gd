@@ -283,4 +283,3 @@ func _slow_shoot():
 	else:
 		walk_speed = 7 - slowness_aim
 		sprint_speed = 8.5 - slowness_aim
-	
