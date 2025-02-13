@@ -4,10 +4,6 @@ extends Node3D
 @onready var character_body_3d = $CharacterBody3D
 @onready var shell_spawner = $CharacterBody3D/head/Camera3D/weapons/shotgun/spawner_Shell
 
-@onready var tracer = preload("res://tracer/bullettracer.tscn")
-@onready var rcont = $CharacterBody3D/head/Camera3D/weapons/shotgun/rcont
-@onready var tracer_spawner = $CharacterBody3D/head/Camera3D/weapons/shotgun/tracerspawn
-
 func _ejection_shell() -> void:
 	var cur_anim = $CharacterBody3D/head/Camera3D/weapons/shotgun/AnimationPlayer.current_animation
 	var speed_of_shell_local = shell_spawner.global_transform.basis * Vector3(0, 0, 5)

@@ -4,7 +4,11 @@ extends CharacterBody3D
 @export var shell_scene : PackedScene
 
 #spread
-var spread = 10
+var spread = 5
+
+#tracer
+@export var tracer = preload("res://tracer/bullettracer.tscn")
+@onready var tracer_spawner = $head/Camera3D/weapons/shotgun/tracerspawn
 
 #var
 @onready var animations = $head/Camera3D/weapons/shotgun/AnimationPlayer
@@ -245,6 +249,14 @@ func _handle_shooting() -> void:
 				var spread_rand = Vector3(randf_range(spread, -spread), 
 				randf_range(spread, -spread), r.target_position.z)
 				r.target_position = spread_rand
+				var bullet_tracer = tracer.instantiate()
+				bullet_tracer.global_transform = tracer_spawner.global_transform
+				bullet_tracer.look_at_from_position(tracer_spawner.global_transform.origin, 
+				r.get_collision_point(), Vector3.UP)
+				var direction = (r.get_collision_point() - tracer_spawner.global_transform.origin).normalized()
+				bullet_tracer.velocity = direction * bullet_tracer.speed
+				add_sibling(bullet_tracer)
+				
 				if r.is_colliding():
 					var collider = r.get_collider()
 					if collider.is_in_group("enemy"):
