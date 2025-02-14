@@ -9,6 +9,7 @@ var spread = 5
 #tracer
 @export var tracer = preload("res://tracer/bullettracer.tscn")
 @onready var tracer_spawner = $head/Camera3D/weapons/shotgun/tracerspawn
+@onready var rcont = $head/Camera3D/weapons/shotgun/rcont
 
 #var
 @onready var animations = $head/Camera3D/weapons/shotgun/AnimationPlayer
@@ -16,9 +17,6 @@ var spread = 5
 #camera tilt settings
 @export var camera_tilt_intese = 0.03
 @export var camera_speed_return = 10
-
-#hitscan
-@onready var rcont = $head/Camera3D/weapons/shotgun/rcont
 
 #subcam
 @onready var camera = get_node("%Camera3D")
@@ -116,7 +114,6 @@ func _ready() -> void:
 	dis_aim_pos = base_pos + Vector3(-0.295, 0.135, 0)
 	
 	for r in rcont.get_children():
-		r.force_raycast_update()
 		r.target_position = Vector3(
 			randf_range(spread, -spread), 
 			randf_range(spread, -spread), 
@@ -226,16 +223,21 @@ func _weapon_bob(delta) -> void:
 	%weapons.position.y += sin(weapon_bob_time * weapon_bob_frequency) * self.velocity.length() * weapon_bob_move_amount
 
 func _take_aim(delta):
-	if aiming:
-		slowness_aim = walk_speed - walk_speed / 1.5
-		aim_down_sides.position.x = lerp(aim_down_sides.position.x, dis_aim_pos.x, delta * speed_aiming)
-		aim_down_sides.position.y = lerp(aim_down_sides.position.y, dis_aim_pos.y, delta * speed_aiming)
-		aim_down_sides.position = Vector3(aim_down_sides.position.x, aim_down_sides.position.y, dis_aim_pos.z)
+	var cur_anim = animations.current_animation
+	var is_reloading = cur_anim == "reload"
+	var target_pos = base_pos if is_reloading or not aiming else dis_aim_pos
+	
+	if is_reloading:
+		slowness_aim = 0.0
 	else:
-		slowness_aim = 0
-		aim_down_sides.position.x = lerp(aim_down_sides.position.x, base_pos.x, delta * speed_aiming)
-		aim_down_sides.position.y = lerp(aim_down_sides.position.y, base_pos.y, delta * speed_aiming)
-		aim_down_sides.position = Vector3(aim_down_sides.position.x, aim_down_sides.position.y, base_pos.z)
+		if aiming:
+			slowness_aim = walk_speed - walk_speed / 1.5
+		else:
+			slowness_aim = 0.0
+
+	aim_down_sides.position.x = lerp(aim_down_sides.position.x, target_pos.x, delta * speed_aiming)
+	aim_down_sides.position.y = lerp(aim_down_sides.position.y, target_pos.y, delta * speed_aiming)
+	aim_down_sides.position.z = target_pos.z
 
 func _handle_shooting() -> void:
 	var cur_anim = animations.current_animation
@@ -256,11 +258,6 @@ func _handle_shooting() -> void:
 				var direction = (r.get_collision_point() - tracer_spawner.global_transform.origin).normalized()
 				bullet_tracer.velocity = direction * bullet_tracer.speed
 				add_sibling(bullet_tracer)
-				
-				if r.is_colliding():
-					var collider = r.get_collider()
-					if collider.is_in_group("enemy"):
-						collider._getting_shot()
 
 			animations.queue("shoot")
 			Global.current_number_of_bullets -= 1
@@ -295,3 +292,6 @@ func _slow_shoot():
 	else:
 		walk_speed = 7 - slowness_aim
 		sprint_speed = 8.5 - slowness_aim
+
+func _stop_reload():
+	animations.pause()

@@ -63,11 +63,20 @@ shape = SubResource("BoxShape3D_5qxlf")
 [node name="CharacterBody3D" parent="SubViewport/World" instance=ExtResource("3_7yjwx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8601, 0)
 
-[node name="head" parent="SubViewport/World/CharacterBody3D" index="2"]
-script = null
-
 [node name="wholething" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0.003125, -0.028125, 0.2625)
+transform = Transform3D(0.707107, 0.194905, 0.679714, -3.72529e-08, 0.961261, -0.275637, -0.707107, 0.194905, 0.679715, 0.0159294, -0.0651075, 0.30625)
+
+[node name="barrel" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.003125, 0.0375, -0.1575)
+
+[node name="shell3" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, 0.0953125, 0.011875)
+
+[node name="shell2" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="3"]
+transform = Transform3D(0.653363, -0.196151, -0.731192, 0.0605512, 0.976296, -0.207797, 0.754619, 0.0914922, 0.649752, -0.2275, -0.258437, 0.0775001)
+
+[node name="lock" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="3"]
+transform = Transform3D(0.873424, 0, 0.486958, 0, 1, 0, -0.486958, 0, 0.873424, -0.003125, 0.11125, -0.021875)
 
 [node name="GPUParticles3D" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething/flash" index="0"]
 explosiveness = 0.92

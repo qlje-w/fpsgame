@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0gkou5yu4sx3"]
+[gd_scene load_steps=16 format=3 uid="uid://b0gkou5yu4sx3"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ubieu"]
 [ext_resource type="Texture2D" uid="uid://ddpyp0ngx5asf" path="res://assets/textures/bateman.jpg" id="2_3sl2l"]
-[ext_resource type="Script" path="res://player/head.gd" id="2_7stju"]
 [ext_resource type="PackedScene" uid="uid://cm74fi534x3cv" path="res://shotgun/shotgun_scene.tscn" id="4_mjdlr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qh8g0"]
@@ -78,7 +77,6 @@ skeleton = NodePath("../..")
 [node name="head" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.609909, 0)
-script = ExtResource("2_7stju")
 
 [node name="Camera3D" type="Camera3D" parent="head"]
 unique_name_in_owner = true
@@ -90,6 +88,9 @@ unique_name_in_owner = true
 
 [node name="shotgun" parent="head/Camera3D/weapons" instance=ExtResource("4_mjdlr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293918, -0.235843, -0.588566)
+
+[node name="shell2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -0.123438, 0.011875)
 
 [node name="flash" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething" index="4"]
 

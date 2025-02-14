@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwuvs8w8dx4v7"]
+[gd_scene load_steps=7 format=3 uid="uid://cwuvs8w8dx4v7"]
 
 [ext_resource type="Script" path="res://tracer/bullettracer.gd" id="1_co83t"]
 
@@ -13,10 +13,16 @@ fill_to = Vector2(0.542735, 0)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxhkp"]
 cull_mode = 2
 albedo_texture = SubResource("GradientTexture2D_w42yr")
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("GradientTexture2D_w42yr")
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_uxd1w"]
 material = SubResource("StandardMaterial3D_qxhkp")
 size = 0.013
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_503xu"]
+size = Vector3(0.0158539, 0.0119247, 1)
 
 [node name="tracer" type="Node3D"]
 script = ExtResource("1_co83t")
@@ -25,3 +31,11 @@ script = ExtResource("1_co83t")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.506102)
 mesh = SubResource("RibbonTrailMesh_uxd1w")
 skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00101471, 0.000278473, -0.502248)
+shape = SubResource("BoxShape3D_503xu")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
