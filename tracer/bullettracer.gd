@@ -2,6 +2,8 @@ extends Node3D
 var speed = 50
 var velocity: Vector3 = Vector3.ZERO
 
+@export var hole = preload("res://assets/textures/png-clipart-bullet-transparency-and-translucency-bullet-holes-miscellaneous-rock.png")
+
 func _process(delta: float) -> void:
 	global_translate(velocity * delta)
 

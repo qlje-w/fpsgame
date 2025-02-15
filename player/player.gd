@@ -35,6 +35,11 @@ var pos : Vector3
 #click
 var ignore_first_click = true
 
+#shoot slowness
+var shoot_slow
+var initial_walk_speed
+var initial_sprint_speed
+
 #aim
 @export var speed_aiming = 5
 var aiming = false
@@ -42,9 +47,6 @@ var base_pos
 var dis_aim_pos
 @onready var aim_down_sides = $head/Camera3D/weapons/shotgun/Node
 var slowness_aim
-
-#shooting slowness
-@export var shoot_slow = walk_speed / 2
 
 #weapon sway
 var mouse_input_vec : Vector2
@@ -57,8 +59,8 @@ var mouse_input_vec : Vector2
 
 #weapon bob setting
 @export var weapon_bob_time := 0.0
-@export var weapon_bob_frequency = 2
-@export var weapon_bob_move_amount = 0.00025
+@export var weapon_bob_frequency = 1.5
+@export var weapon_bob_move_amount = 0.0002
 
 #headbob settings
 const headbob_move_amount = 0.06
@@ -66,16 +68,21 @@ const headbob_frequency = 2.4
 var headbob_time := 0.0
 
 #ground movement settings
-@export var sprint_speed := 8.5
-@export var walk_speed := 7.0
+@export var sprint_speed := 6.5
+@export var walk_speed := 5.0
 @export var ground_accel := 14.0
 @export var ground_decel := 10.0
-@export var ground_friction := 6.0
+@export var ground_friction := 4.0
 
 #air movement settings
 @export var air_cap := 0.85
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
+
+#qte
+var wait_for_input = false
+var possible_keys = ["q", "e"]
+var action_key
 
 var press_dir := Vector3.ZERO
 
@@ -96,9 +103,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 			mouse_input_vec = event.relative
 			
-	if event.is_action_pressed("lmb") and ignore_first_click == false:
-		_handle_shooting()
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		_handle_reload()
@@ -107,11 +111,23 @@ func _input(event: InputEvent) -> void:
 		aiming = true
 	elif event.is_action_released("rmb"):
 		aiming = false
+
+	if event.is_action_pressed("lmb") and ignore_first_click == false:
+		_handle_shooting()
 	
+	if wait_for_input:
+		if event.is_action_pressed(action_key):
+			animations.play()
+			animations.queue("idle")
+			wait_for_input = false
+
 func _ready() -> void:
 	animations.play("idle")
 	base_pos = $head/Camera3D/weapons/shotgun/Node.position
 	dis_aim_pos = base_pos + Vector3(-0.295, 0.135, 0)
+	
+	initial_walk_speed = walk_speed
+	initial_sprint_speed = sprint_speed
 	
 	for r in rcont.get_children():
 		r.target_position = Vector3(
@@ -186,7 +202,7 @@ func _headbob_effect(delta) -> void:
 
 func _process(_delta: float):
 	camerasub.set_global_transform(camera.get_global_transform())
-	
+
 func _weapon_tilt(press_x, delta) -> void:
 	%weapons.rotation.z = lerp(%weapons.rotation.z, -press_x * weapon_tilt_intese, weapon_speed_return * delta)
 
@@ -224,7 +240,7 @@ func _weapon_bob(delta) -> void:
 
 func _take_aim(delta):
 	var cur_anim = animations.current_animation
-	var is_reloading = cur_anim == "reload"
+	var is_reloading = cur_anim == "reload" or cur_anim == "reloadonebullet" or cur_anim == ""
 	var target_pos = base_pos if is_reloading or not aiming else dis_aim_pos
 	
 	if is_reloading:
@@ -246,18 +262,7 @@ func _handle_shooting() -> void:
 		animations.stop()
 		
 		if Global.current_number_of_bullets > 0:
-			for r in rcont.get_children():
-				r.force_raycast_update()
-				var spread_rand = Vector3(randf_range(spread, -spread), 
-				randf_range(spread, -spread), r.target_position.z)
-				r.target_position = spread_rand
-				var bullet_tracer = tracer.instantiate()
-				bullet_tracer.global_transform = tracer_spawner.global_transform
-				bullet_tracer.look_at_from_position(tracer_spawner.global_transform.origin, 
-				r.get_collision_point(), Vector3.UP)
-				var direction = (r.get_collision_point() - tracer_spawner.global_transform.origin).normalized()
-				bullet_tracer.velocity = direction * bullet_tracer.speed
-				add_sibling(bullet_tracer)
+			_appear_tracer()
 
 			animations.queue("shoot")
 			Global.current_number_of_bullets -= 1
@@ -282,16 +287,34 @@ func _handle_reload() -> void:
 
 func _cam_tilt(press_x, delta) -> void:
 	var target_tilt = -press_x * camera_tilt_intese
-	%head.rotation.z = lerp(%head.rotation.z, target_tilt, camera_speed_return * delta)
+	%Camera3D.rotation.z = lerp(%Camera3D.rotation.z, target_tilt, camera_speed_return * delta)
 
 func _slow_shoot():
 	var cur_anim = animations.current_animation
+	shoot_slow = walk_speed / 6
 	if cur_anim == "shoot":
-		walk_speed = 7.0 - shoot_slow - slowness_aim
-		sprint_speed = 8.5 - shoot_slow - slowness_aim
+		walk_speed = initial_walk_speed - shoot_slow - slowness_aim
+		sprint_speed = initial_sprint_speed - shoot_slow - slowness_aim
 	else:
-		walk_speed = 7 - slowness_aim
-		sprint_speed = 8.5 - slowness_aim
+		walk_speed = initial_walk_speed - slowness_aim
+		sprint_speed = initial_sprint_speed - slowness_aim
 
 func _stop_reload():
 	animations.pause()
+	action_key = possible_keys[randi() % possible_keys.size()]
+	wait_for_input = true
+	print(action_key)
+
+func _appear_tracer():
+	for r in rcont.get_children():
+		r.force_raycast_update()
+		var spread_rand = Vector3(randf_range(spread, -spread), 
+		randf_range(spread, -spread), r.target_position.z)
+		r.target_position = spread_rand
+		var bullet_tracer = tracer.instantiate()
+		bullet_tracer.global_transform = tracer_spawner.global_transform
+		bullet_tracer.look_at_from_position(tracer_spawner.global_transform.origin, 
+		r.get_collision_point(), Vector3.UP)
+		var direction = (r.get_collision_point() - tracer_spawner.global_transform.origin).normalized()
+		bullet_tracer.velocity = direction * bullet_tracer.speed
+		add_sibling(bullet_tracer)

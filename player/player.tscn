@@ -89,8 +89,47 @@ unique_name_in_owner = true
 [node name="shotgun" parent="head/Camera3D/weapons" instance=ExtResource("4_mjdlr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293918, -0.235843, -0.588566)
 
-[node name="shell2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -0.123438, 0.011875)
+[node name="wholething" parent="head/Camera3D/weapons/shotgun/Node/bone" index="0"]
+transform = Transform3D(0.704453, 0.204349, 0.679697, -0.012876, 0.961177, -0.275631, -0.709634, 0.185417, 0.679735, 0.0158295, -0.0652774, 0.30625)
+
+[node name="barrel" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.003125, 0.0375, -0.1575)
+
+[node name="pyramid_selection_selection" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="0"]
+layers = 524288
+
+[node name="pyramid_selection_selection_selection" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="1"]
+layers = 524288
+
+[node name="shell3" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="2"]
+transform = Transform3D(0.784128, -0.142953, -0.603911, 0.0587642, 0.985839, -0.15706, 0.617811, 0.0876668, 0.781424, -0.171359, 0.00237509, 0.105664)
+
+[node name="pyramid_selection_selection_selection2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel/shell3" index="0"]
+layers = 524288
+
+[node name="pyramid_selection_selection_selection_selection" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel/shell3" index="1"]
+layers = 524288
+
+[node name="pyramid_selection_selection_selection3" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel/shell2" index="0"]
+layers = 524288
+
+[node name="pyramid_selection_selection_selection_selection2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel/shell2" index="1"]
+layers = 524288
+
+[node name="tube" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/trigger" index="0"]
+layers = 524288
+
+[node name="tube_selection" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/mainpart" index="0"]
+layers = 524288
+
+[node name="tube2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/mainpart" index="1"]
+layers = 524288
+
+[node name="lock" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething" index="3"]
+transform = Transform3D(0.868743, 0, 0.495262, 0, 1, 0, -0.495262, 0, 0.868743, -0.003125, 0.11125, -0.021875)
+
+[node name="cuboid" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/lock" index="0"]
+layers = 524288
 
 [node name="flash" type="Node3D" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething" index="4"]
 
