@@ -62,8 +62,8 @@ transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0.003125, -0.028125, 0
 [node name="barrel" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, 0.0375, -0.1575)
 
-[node name="shell2" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -0.123438, 0.011875)
+[node name="shell3" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="2"]
+transform = Transform3D(0.784128, -0.142953, -0.60391, 0.0587643, 0.985839, -0.15706, 0.617811, 0.0876668, 0.781424, -0.171359, 0.00237509, 0.105664)
 
 [node name="lock" parent="SubViewport/World/CharacterBody3D/head/Camera3D/weapons/shotgun/Node/bone/wholething" index="3"]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -0.003125, 0.11125, -0.021875)

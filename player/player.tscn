@@ -102,7 +102,7 @@ layers = 524288
 layers = 524288
 
 [node name="shell3" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel" index="2"]
-transform = Transform3D(0.784128, -0.142953, -0.603911, 0.0587642, 0.985839, -0.15706, 0.617811, 0.0876668, 0.781424, -0.171359, 0.00237509, 0.105664)
+transform = Transform3D(0.784128, -0.142953, -0.60391, 0.0587643, 0.985839, -0.15706, 0.617811, 0.0876667, 0.781424, -0.171359, 0.00237509, 0.105664)
 
 [node name="pyramid_selection_selection_selection2" parent="head/Camera3D/weapons/shotgun/Node/bone/wholething/barrel/shell3" index="0"]
 layers = 524288
@@ -187,19 +187,19 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+[node name="weapon" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="subcam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+[node name="subcam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/weapon"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.611865, 0)
 cull_mask = 524288
 current = true
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SubViewportContainer/weapon/subcam"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -208,20 +208,26 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="top" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+[node name="top" type="Line2D" parent="CanvasLayer/SubViewportContainer/weapon/subcam/CenterContainer"]
 points = PackedVector2Array(0, -5, 0, -20)
 width = 2.0
 
-[node name="right" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+[node name="right" type="Line2D" parent="CanvasLayer/SubViewportContainer/weapon/subcam/CenterContainer"]
 points = PackedVector2Array(20, 0, 5, 0)
 width = 2.0
 
-[node name="down" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+[node name="down" type="Line2D" parent="CanvasLayer/SubViewportContainer/weapon/subcam/CenterContainer"]
 points = PackedVector2Array(0, 20, 0, 5)
 width = 2.0
 
-[node name="left" type="Line2D" parent="CanvasLayer/SubViewportContainer/SubViewport/subcam/CenterContainer"]
+[node name="left" type="Line2D" parent="CanvasLayer/SubViewportContainer/weapon/subcam/CenterContainer"]
 points = PackedVector2Array(-5, 0, -20, 0)
 width = 2.0
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 297.0
+offset_top = 477.0
+offset_right = 455.0
+offset_bottom = 500.0
 
 [editable path="head/Camera3D/weapons/shotgun"]

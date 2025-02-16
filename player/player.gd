@@ -68,11 +68,11 @@ const headbob_frequency = 2.4
 var headbob_time := 0.0
 
 #ground movement settings
-@export var sprint_speed := 6.5
-@export var walk_speed := 5.0
+@export var sprint_speed := 7.5
+@export var walk_speed := 6.0
 @export var ground_accel := 14.0
 @export var ground_decel := 10.0
-@export var ground_friction := 4.0
+@export var ground_friction := 5.0
 
 #air movement settings
 @export var air_cap := 0.85
@@ -115,11 +115,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("lmb") and ignore_first_click == false:
 		_handle_shooting()
 	
-	if wait_for_input:
-		if event.is_action_pressed(action_key):
-			animations.play()
-			animations.queue("idle")
-			wait_for_input = false
+	_continue_reload(event)
 
 func _ready() -> void:
 	animations.play("idle")
@@ -299,12 +295,6 @@ func _slow_shoot():
 		walk_speed = initial_walk_speed - slowness_aim
 		sprint_speed = initial_sprint_speed - slowness_aim
 
-func _stop_reload():
-	animations.pause()
-	action_key = possible_keys[randi() % possible_keys.size()]
-	wait_for_input = true
-	print(action_key)
-
 func _appear_tracer():
 	for r in rcont.get_children():
 		r.force_raycast_update()
@@ -318,3 +308,17 @@ func _appear_tracer():
 		var direction = (r.get_collision_point() - tracer_spawner.global_transform.origin).normalized()
 		bullet_tracer.velocity = direction * bullet_tracer.speed
 		add_sibling(bullet_tracer)
+
+func _stop_reload():
+	animations.pause()
+	action_key = possible_keys[randi() % possible_keys.size()]
+	wait_for_input = true
+	$CanvasLayer/Label.text = action_key
+	
+func _continue_reload(event):
+	if wait_for_input:
+		if event.is_action_pressed(action_key):
+			animations.play()
+			animations.queue("idle")
+			wait_for_input = false
+			$CanvasLayer/Label.text = ""
