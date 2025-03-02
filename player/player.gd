@@ -86,12 +86,16 @@ var action_key
 
 var press_dir := Vector3.ZERO
 
+#anim conditions
+@onready var anim_tree : AnimationTree = $head/Camera3D/weapons/shotgun/AnimationTree
+var is_shooting = false
+var is_reloading = false
+
 func _get_move_speed() -> float:
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		_ignore_first_click()
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -102,23 +106,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			%Camera3D.rotate_x(-event.relative.y * sensetivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 			mouse_input_vec = event.relative
-			
+	_ignore_first_click()
+
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("reload"):
+	if event.is_action_pressed("reload") and not is_reloading and not is_shooting:
 		_handle_reload()
-		
+
 	if event.is_action_pressed("rmb"):
 		aiming = true
 	elif event.is_action_released("rmb"):
 		aiming = false
 
-	if event.is_action_pressed("lmb") and ignore_first_click == false:
+	if event.is_action_pressed("lmb") and ignore_first_click == false and not is_reloading:
 		_handle_shooting()
 	
 	_continue_reload(event)
 
 func _ready() -> void:
-	animations.play("idle")
 	base_pos = $head/Camera3D/weapons/shotgun/Node.position
 	dis_aim_pos = base_pos + Vector3(-0.295, 0.135, 0)
 	
@@ -131,7 +135,7 @@ func _ready() -> void:
 			randf_range(spread, -spread), 
 			r.target_position.z
 		)
-
+	
 func _physics_process(delta: float) -> void:
 	# Gets the input direction
 	var input_dir = Input.get_vector("left", "right", "up", "down").normalized()
@@ -156,7 +160,7 @@ func _physics_process(delta: float) -> void:
 	_take_aim(delta)
 	
 	_slow_shoot()
-
+	
 func _handle_air_physics(delta: float) -> void:
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 	
@@ -198,7 +202,8 @@ func _headbob_effect(delta) -> void:
 
 func _process(_delta: float):
 	camerasub.set_global_transform(camera.get_global_transform())
-
+	print(is_reloading)
+	
 func _weapon_tilt(press_x, delta) -> void:
 	%weapons.rotation.z = lerp(%weapons.rotation.z, -press_x * weapon_tilt_intese, weapon_speed_return * delta)
 
@@ -206,7 +211,6 @@ func _ignore_first_click():
 	ignore_first_click = true
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		ignore_first_click = false
-		return ignore_first_click
 
 func _weapon_sway(delta) -> void:
 	if aiming:
@@ -223,7 +227,7 @@ func _weapon_sway(delta) -> void:
 	
 	%weapons.position.x = lerp(%weapons.position.x, target_x, delta * weapon_sway_speed)
 	%weapons.position.y = lerp(%weapons.position.y, target_y, delta * weapon_sway_speed)
-	
+
 func _weapon_bob(delta) -> void:
 	if aiming:
 		weapon_bob_move_amount = 0.00005
@@ -235,8 +239,6 @@ func _weapon_bob(delta) -> void:
 	%weapons.position.y += sin(weapon_bob_time * weapon_bob_frequency) * self.velocity.length() * weapon_bob_move_amount
 
 func _take_aim(delta):
-	var cur_anim = animations.current_animation
-	var is_reloading = cur_anim == "reload" or cur_anim == "reloadonebullet" or cur_anim == ""
 	var target_pos = base_pos if is_reloading or not aiming else dis_aim_pos
 	
 	if is_reloading:
@@ -252,43 +254,37 @@ func _take_aim(delta):
 	aim_down_sides.position.z = target_pos.z
 
 func _handle_shooting() -> void:
-	var cur_anim = animations.current_animation
-	
-	if cur_anim == "idle":
-		animations.stop()
+	if Global.current_number_of_bullets > 0:
+		is_shooting = true
+		anim_tree["parameters/StateMachine/conditions/is_shoot"] = true
+		_appear_tracer()
 		
-		if Global.current_number_of_bullets > 0:
-			_appear_tracer()
-
-			animations.queue("shoot")
-			Global.current_number_of_bullets -= 1
-			animations.queue("idle")
-			
-		elif Global.current_number_of_bullets < 0.5:
-			animations.play("shoot2")
+		Global.current_number_of_bullets -= 1
 		
-		animations.queue("idle")
+	elif Global.current_number_of_bullets < 0.5:
+		is_shooting = true
+		anim_tree["parameters/StateMachine/conditions/is_shootbl"] = true
 
 func _handle_reload() -> void:
-	var cur_anim = animations.current_animation
+	if Global.current_number_of_bullets < 0.5:
+		is_reloading = true
+		anim_tree["parameters/StateMachine/conditions/is_reloading"] = true
+	
+	elif Global.current_number_of_bullets < Global.number_of_bullets:
+		is_reloading = true
+		anim_tree["parameters/StateMachine/conditions/is_reloadone"] = true
 
-	if cur_anim == "idle":
-		if Global.current_number_of_bullets < 0.5:
-			animations.play("reload")
-		elif Global.current_number_of_bullets < Global.number_of_bullets:
-			animations.play("reloadonebullet")
-			
-		animations.queue("idle")
-		Global.current_number_of_bullets = Global.number_of_bullets
+	Global.current_number_of_bullets = Global.number_of_bullets
 
 func _cam_tilt(press_x, delta) -> void:
+	#I NEED TO FIX THIS MF 
 	var target_tilt = -press_x * camera_tilt_intese
-	%Camera3D.rotation.z = lerp(%Camera3D.rotation.z, target_tilt, camera_speed_return * delta)
+	target_tilt = clamp(target_tilt, -90, 90)
+	%head.rotation.z = lerp(%head.rotation.z, target_tilt, camera_speed_return * delta)
 
 func _slow_shoot():
-	var cur_anim = animations.current_animation
 	shoot_slow = walk_speed / 6
-	if cur_anim == "shoot":
+	if is_shooting:
 		walk_speed = initial_walk_speed - shoot_slow - slowness_aim
 		sprint_speed = initial_sprint_speed - shoot_slow - slowness_aim
 	else:
@@ -310,7 +306,7 @@ func _appear_tracer():
 		add_sibling(bullet_tracer)
 
 func _stop_reload():
-	animations.pause()
+	anim_tree.set("parameters/TimeScale/scale", 0.0)
 	action_key = possible_keys[randi() % possible_keys.size()]
 	wait_for_input = true
 	$CanvasLayer/Label.text = action_key
@@ -318,7 +314,17 @@ func _stop_reload():
 func _continue_reload(event):
 	if wait_for_input:
 		if event.is_action_pressed(action_key):
-			animations.play()
-			animations.queue("idle")
+			anim_tree.set("parameters/TimeScale/scale", 1.0)
 			wait_for_input = false
 			$CanvasLayer/Label.text = ""
+
+func _on_animation_tree_animation_finished(_anim_name: StringName) -> void:
+	anim_tree["parameters/StateMachine/conditions/is_shoot"] = false
+	anim_tree["parameters/StateMachine/conditions/is_shootbl"] = false
+	anim_tree["parameters/StateMachine/conditions/is_reloadone"] = false
+	anim_tree["parameters/StateMachine/conditions/is_reloading"] = false
+	
+
+	is_reloading = false
+	
+	is_shooting = false

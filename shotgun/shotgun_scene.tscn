@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cm74fi534x3cv"]
+[gd_scene load_steps=45 format=4 uid="uid://cm74fi534x3cv"]
 
 [ext_resource type="Texture2D" uid="uid://lnwgtuw3fnyg" path="res://assets/models/shotgun(final_0.png" id="1_r2w5v"]
 [ext_resource type="Texture2D" uid="uid://cip4ykt8io7gs" path="res://assets/models/shotgun(final_1.png" id="2_0jy5k"]
@@ -359,6 +359,86 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_aljie")
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eu7xf"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uouwb"]
+animation = &"reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6rsrr"]
+animation = &"reloadonebullet"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6tq7a"]
+animation = &"shoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yr7y2"]
+animation = &"shoot2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s8ywm"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_reloading"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_52jit"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2tqbu"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4u06u"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_reloadone"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vvmd7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_md12i"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2f0m1"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qgt6e"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hkib2"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_shootbl"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v6l62"]
+states/Start/position = Vector2(193, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_eu7xf")
+states/idle/position = Vector2(400, 118)
+states/reload/node = SubResource("AnimationNodeAnimation_uouwb")
+states/reload/position = Vector2(395, 35)
+states/reloadonebullet/node = SubResource("AnimationNodeAnimation_6rsrr")
+states/reloadonebullet/position = Vector2(571, 52)
+states/shoot/node = SubResource("AnimationNodeAnimation_6tq7a")
+states/shoot/position = Vector2(395, 209)
+states/shoot2/node = SubResource("AnimationNodeAnimation_yr7y2")
+states/shoot2/position = Vector2(556, 209)
+transitions = ["idle", "reload", SubResource("AnimationNodeStateMachineTransition_s8ywm"), "reload", "idle", SubResource("AnimationNodeStateMachineTransition_52jit"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_2tqbu"), "idle", "reloadonebullet", SubResource("AnimationNodeStateMachineTransition_4u06u"), "reloadonebullet", "idle", SubResource("AnimationNodeStateMachineTransition_vvmd7"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_md12i"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_2f0m1"), "shoot2", "idle", SubResource("AnimationNodeStateMachineTransition_qgt6e"), "idle", "shoot2", SubResource("AnimationNodeStateMachineTransition_hkib2")]
+graph_offset = Vector2(-72, 12)
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_0i2h3"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_08usy"]
+graph_offset = Vector2(-560.363, 75.9091)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_v6l62")
+nodes/StateMachine/position = Vector2(-40, 120)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_0i2h3")
+nodes/TimeScale/position = Vector2(240, 140)
+nodes/output/position = Vector2(440, 140)
+node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"]
+
 [node name="shotgun" type="Node3D"]
 
 [node name="Node" type="Node3D" parent="."]
@@ -366,7 +446,7 @@ shadow_mesh = SubResource("ArrayMesh_aljie")
 [node name="bone" type="Node3D" parent="Node"]
 
 [node name="wholething" type="Node3D" parent="Node/bone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003125, -0.028125, 0.2625)
+transform = Transform3D(0.999988, 0.00501757, 2.06385e-05, -0.00501762, 0.999979, 0.00405809, -2.76328e-07, -0.00405814, 0.999992, 0.003125, -0.028125, 0.2625)
 
 [node name="barrel" type="Node3D" parent="Node/bone/wholething"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003125, 0.0375, -0.1575)
@@ -439,3 +519,12 @@ skeleton = NodePath("")
 libraries = {
 "": ExtResource("13_0um7d")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_08usy")
+anim_player = NodePath("../AnimationPlayer")
+parameters/StateMachine/conditions/is_reloading = false
+parameters/StateMachine/conditions/is_reloadone = false
+parameters/StateMachine/conditions/is_shoot = false
+parameters/StateMachine/conditions/is_shootbl = false
+parameters/TimeScale/scale = 1.0
